@@ -1,8 +1,20 @@
 {% extends 'base.html' %}
+{% block meta %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'first.css' %}">
+{% endblock meta %}
 
 {% block content %}
-<h5>Nama: </h5>
-<p>{{nama}}</p>
+<nav class="navbar bg-light navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">{{ nama }}</a>
+      <a href="{% url 'wishlist:logout' %}">
+        <button type="button" class="btn btn-primary">
+          Logout
+        </button>
+      </a>
+    </div>
+</nav>
 
 <table>
     <tr>
@@ -20,6 +32,5 @@
 {% endfor %}
 </table>
 <h5>Sesi terakhir login: {{ last_login }}</h5>
-<button><a href="{% url 'wishlist:logout' %}">Logout</a></button>
 
 {% endblock content %}

@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
-
 {% block meta %}
-<title>Login</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'first.css' %}">
 {% endblock meta %}
+
+<title>Login</title>
 
 {% block content %}
 
@@ -31,11 +33,11 @@
     </form>
 
     {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
+    <div class="d-flex flex-column gap-2 mt-2">
+        {% for message in messages %}
+        <div class="alert alert-primary">{{ message }}</div>
+        {% endfor %}
+    <div>
     {% endif %}     
         
     Belum mempunyai akun? <a href="{% url 'wishlist:register' %}">Buat Akun</a>

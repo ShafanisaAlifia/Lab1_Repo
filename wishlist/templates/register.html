@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
-
 {% block meta %}
-<title>Registrasi Akun</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'first.css' %}">
 {% endblock meta %}
+
+<title>Registrasi Akun</title>
 
 {% block content %}  
 
@@ -22,11 +24,11 @@
         </form>
 
     {% if messages %}  
-        <ul>   
-            {% for message in messages %}  
-                <li>{{ message }}</li>  
-                {% endfor %}  
-        </ul>   
+    <div class="d-flex flex-column gap-2 mt-2">
+        {% for message in messages %}
+        <div class="alert alert-primary">{{ message }}</div>
+        {% endfor %}
+    </div>
     {% endif %}
 
 </div>  
