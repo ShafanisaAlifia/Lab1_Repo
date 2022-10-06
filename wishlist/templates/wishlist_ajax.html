@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block meta %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'first.css' %}">
+{% endblock meta %}
+
+{% block content %}
+<nav class="navbar bg-light navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">{{ nama }}</a>
+      <a href="{% url 'wishlist:logout' %}">
+        <button type="button" class="btn btn-primary">
+          Logout
+        </button>
+      </a>
+    </div>
+</nav>
+
+<table>
+    <tr>
+    <th>Nama Barang</th>
+    <th>Harga Barang</th>
+    <th>Deskripsi</th>
+    </tr>
+    {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
+    {% for barang in list_barang %}
+    <tr>
+        <th>{{barang.nama_barang}}</th>
+        <th>{{barang.harga_barang}}</th>
+        <th>{{barang.deskripsi}}</th>
+    </tr>
+{% endfor %}
+</table>
+<h5>Sesi terakhir login: {{ last_login }}</h5>
+
+<script>
+    const table = document.querySelector('.table-row');
+    fetch("{% url 'wishlist:show_json' %}")
+        .then(resp => resp.json())
+        .then(data => {
+            data.forEach(item => {
+                let tr = document.createElement('tr')
+                let item_name = document.createElement('td')
+                let item_price = document.createElement('td')
+                let item_description = document.createElement('td')
+                item_name.appendChild(document.createTextNode(item.fields.nama_barang))
+                item_price.appendChild(document.createTextNode(item.fields.harga_barang))
+                item_description.appendChild(document.createTextNode(item.fields.deskripsi))
+                tr.setAttribute('scope', 'row')
+                tr.appendChild(item_name)
+                tr.appendChild(item_price)
+                tr.appendChild(item_description)
+                table.appendChild(tr)
+            })
+        })
+</script>
+
+{% endblock content %}
